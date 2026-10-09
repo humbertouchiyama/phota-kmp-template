@@ -18,7 +18,7 @@ data comes from a fake API that one Koin line swaps for a Ktor client on picsum.
 androidApp/   Android entry point (Application, Activity). Thin.
 iosApp/       iOS entry point (SwiftUI shell hosting the Compose view). Thin.
 shared/       All app code: UI, ViewModels, data, DI.
-  feature            PhotoImage, the one Coil image call site
+  feature            PhotoImage (detail image with loading + error slots; the grid uses plain AsyncImage, faster in a lazy list)
   feature/gallery    image grid + detail
   feature/generate   fake generate/upload
   core/network       PhotoApi, FakePhotoApi, Ktor client + KtorPhotoApi
