@@ -1,14 +1,10 @@
 package com.humbertouchiyama.phota
 
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -16,7 +12,7 @@ import androidx.compose.runtime.saveable.Saver
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
+import com.humbertouchiyama.phota.feature.gallery.DetailScreen
 import com.humbertouchiyama.phota.feature.gallery.GalleryScreen
 
 sealed interface Screen {
@@ -45,18 +41,9 @@ fun App() {
             Box(Modifier.safeDrawingPadding()) {
                 when (val current = screen) {
                     Screen.Gallery -> GalleryScreen(onOpenPhoto = { screen = Screen.Detail(it) })
-                    is Screen.Detail -> DetailPlaceholder(current.photoId, onBack = { screen = Screen.Gallery })
+                    is Screen.Detail -> DetailScreen(photoId = current.photoId, onBack = { screen = Screen.Gallery })
                 }
             }
         }
-    }
-}
-
-// Seam: u3 replaces this with the real DetailScreen
-@Composable
-private fun DetailPlaceholder(photoId: String, onBack: () -> Unit) {
-    Column(Modifier.padding(16.dp)) {
-        TextButton(onClick = onBack) { Text("Back") }
-        Text("Photo $photoId")
     }
 }

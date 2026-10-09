@@ -1,6 +1,9 @@
 package com.humbertouchiyama.phota.feature.generate
 
+import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 
-// Placeholder. Fake generate/upload flow lives here.
-val generateModule = module { }
+// Generate flow ViewModel, keyed by source photo id (u3 spec).
+val generateModule = module {
+    viewModel { (id: String) -> GenerateViewModel(id, get()) }
+}
