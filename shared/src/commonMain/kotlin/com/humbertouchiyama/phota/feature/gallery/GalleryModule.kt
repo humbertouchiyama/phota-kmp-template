@@ -1,6 +1,9 @@
 package com.humbertouchiyama.phota.feature.gallery
 
+import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 
-// Placeholder. Image grid and detail screen live here.
-val galleryModule = module { }
+val galleryModule = module {
+    viewModel { GalleryViewModel(get()) }
+    viewModel { (id: String) -> DetailViewModel(id, get()) }
+}
