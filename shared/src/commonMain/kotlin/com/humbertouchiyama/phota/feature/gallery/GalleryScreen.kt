@@ -23,6 +23,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.painter.ColorPainter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -72,6 +73,8 @@ fun GalleryScreen(
                         model = photo.imageUrl,
                         contentDescription = photo.author,
                         contentScale = ContentScale.Crop,
+                        placeholder = ColorPainter(MaterialTheme.colorScheme.surfaceVariant),
+                        error = ColorPainter(MaterialTheme.colorScheme.errorContainer),
                         modifier = Modifier.aspectRatio(1f).then(border).clickable {
                             viewModel.onEvent(GalleryEvent.Select(photo.id))
                             onOpenPhoto(photo.id)

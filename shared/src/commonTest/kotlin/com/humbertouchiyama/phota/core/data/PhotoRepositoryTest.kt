@@ -115,7 +115,7 @@ class PhotoRepositoryTest {
         val api = FakePhotoApi(); val repo = PhotoRepositoryImpl(api)
         repo.photos().getOrThrow()
         val j = launch { repo.generate("3").collect {} }
-        advanceTimeBy(api.delayMillis / 2)
+        advanceTimeBy(api.progressMillis / 2)
         j.cancel()
         advanceUntilIdle()
         assertTrue(j.isCancelled)
@@ -170,7 +170,7 @@ class PhotoRepositoryTest {
     fun uploadCancelledCompletes() = runTest {
         val api = FakePhotoApi(); val repo = PhotoRepositoryImpl(api)
         val j = launch { repo.upload().collect {} }
-        advanceTimeBy(api.delayMillis / 2)
+        advanceTimeBy(api.progressMillis / 2)
         j.cancel()
         advanceUntilIdle()
         assertTrue(j.isCancelled)

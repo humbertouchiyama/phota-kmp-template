@@ -6,7 +6,12 @@ import kotlinx.coroutines.flow.flow
 
 class FakeApiException(message: String = "Simulated failure") : Exception(message)
 
-class FakePhotoApi(var delayMillis: Long = 500, var progressSteps: Int = 10) : PhotoApi {
+// progressMillis is per phase (upload, generate); long enough to see the progress and tap Cancel.
+class FakePhotoApi(
+    var delayMillis: Long = 500,
+    var progressMillis: Long = 3_000,
+    var progressSteps: Int = 10,
+) : PhotoApi {
     var listCalls: Int = 0
         private set
     var getCalls: Int = 0
@@ -56,7 +61,7 @@ class FakePhotoApi(var delayMillis: Long = 500, var progressSteps: Int = 10) : P
         val pending = takeFailure()
         val steps = progressSteps.coerceAtLeast(1)
         for (i in 1..steps) {
-            delay(delayMillis / steps)
+            delay(progressMillis / steps)
             emit(i.toFloat() / steps)
             if (pending != null) throw pending
         }
